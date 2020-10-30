@@ -1,7 +1,10 @@
-# This is a sample Python script.
-
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+'''
+UNIVERSIDAD NACIONAL DE COSTA RICA
+ESTRUCTURAS DE DATOS - EIF-207
+PROYECTO # 2
+ESTUDIANTES: DAVID BARRIENTOS, DANIEL MADRIGAL, JOEL ZAMORA
+PROFESOR: JOSE CALVO SUÁREZ
+'''
 
 
 def print_hi(name):
