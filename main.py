@@ -13,5 +13,6 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
     print("yamete kudasai")
+    print("ak7 mae ando con toda la gallada, fumando rolando si esa marihuana")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
