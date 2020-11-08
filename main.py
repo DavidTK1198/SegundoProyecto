@@ -16,6 +16,7 @@ if __name__ == '__main__':
     simbolito.insertar_to_dictionary(palabrita)
     valor = simbolito.HashmapFunciones.get(10)
     print(valor.nombre)
+    simbolito.leer_archivo()
 
     print("yamete kudasai")
     print("ak7 mae ando con toda la gallada, fumando rolando si esa marihuana")

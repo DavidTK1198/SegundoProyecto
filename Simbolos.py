@@ -3,6 +3,7 @@ import queue
 import array
 import hashlib
 import Palabras_Reservadas
+from io import open
 
 class TablaSimbolos:
     def __init__(self):
@@ -62,6 +63,17 @@ class TablaSimbolos:
         key = self.hashing_function(p.nombre)
         self.HashmapFunciones[key] = p
         print(self.HashmapFunciones)
+
+    def leer_archivo(self):
+        self._leerarchivo()
+
+    def _leerarchivo(self):
+        archivo=open("funcion1.txt","r",encoding="utf-8")
+        valor=archivo.read()
+        archivo.close()
+        for i in valor:
+            print(i)
+        print(valor)
 
 
 
