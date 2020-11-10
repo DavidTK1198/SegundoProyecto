@@ -65,7 +65,7 @@ class TablaSimbolos:
         print(self.HashmapFunciones)
 
     def leer_archivo(self):
-        self._leerarchivo()
+        self.__leerarchivo()
 
     def __leerarchivo(self):
         archivo=open("funcion1.txt","r",encoding="utf-8")
@@ -84,13 +84,14 @@ class TablaSimbolos:
         stack=queue.LifoQueue()
         declaracion = ""
         vector_declaraciones = []
-        for i in linea:
-            if i is not " " and i is not "(" and i is not "=" and i is not ";" and i is not "}":
-                declaracion += i
-            elif i is "}":
+        for i in range(len(linea)):
+            print(linea[i])
+            if linea[i] != " " and linea[i] != "(" and linea[i] != "=" and linea[i] != ";" and linea[i] != "}":
+                declaracion += linea[i]
+            elif linea[i] == "}":
                 self.funcion.get()
-            elif i is '(' and declaracion is not "if" and declaracion is not "while" and declaracion is not "for":
-                self.__es_parametro()
+            elif linea[i] == '(' and declaracion != "if" and declaracion != "while" and declaracion != "for":
+                print("hola")
 
 
 
