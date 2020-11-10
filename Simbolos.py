@@ -67,7 +67,7 @@ class TablaSimbolos:
     def leer_archivo(self):
         self._leerarchivo()
 
-    def _leerarchivo(self):
+    def __leerarchivo(self):
         archivo=open("funcion1.txt","r",encoding="utf-8")
         valor=archivo.readlines()
         archivo.close()
@@ -75,8 +75,22 @@ class TablaSimbolos:
             n = i
             nuevo = n.strip()
             self.codigoFuente.append(nuevo)
-        print(self.codigoFuente)
+            self.__leer_String(nuevo)
 
+
+
+
+    def __leer_String(self,linea):
+        stack=queue.LifoQueue()
+        declaracion = ""
+        vector_declaraciones = []
+        for i in linea:
+            if i is not " " and i is not "(" and i is not "=" and i is not ";" and i is not "}":
+                declaracion += i
+            elif i is "}":
+                self.funcion.get()
+            elif i is '(' and declaracion is not "if" and declaracion is not "while" and declaracion is not "for":
+                self.__es_parametro()
 
 
 
