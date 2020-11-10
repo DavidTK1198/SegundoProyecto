@@ -69,11 +69,22 @@ class TablaSimbolos:
 
     def _leerarchivo(self):
         archivo=open("funcion1.txt","r",encoding="utf-8")
-        valor=archivo.read()
+        valor=archivo.readlines()
         archivo.close()
         for i in valor:
-            print(i)
-        print(valor)
+            n = i
+            nuevo = n.strip()
+            self.codigoFuente.append(nuevo)
+        print(self.codigoFuente)
+
+
+
+
+
+
+
+
+
 
 
 
