@@ -34,6 +34,11 @@ class Palabras_Reservadas:
         print("Identificador" + self.identificacion + '\n')
         print("Lugar Procedencia" + self.lugarP + '\n')
         print("Valor" + self.valor + '\n')
+    def getLugarP(self):
+        return self.lugarP
+
+    def getNombre(self):
+        return self.nombre
 
 
 

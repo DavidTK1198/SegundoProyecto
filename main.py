@@ -13,8 +13,12 @@ import Palabras_Reservadas
 def incrementar(x):
     x = x+1
 if __name__ == '__main__':
-    #simbolito = Simbolos.TablaSimbolos()
-    #palabrita = Palabras_Reservadas.Palabras_Reservadas("A","marihuana","D","DA","P")
+    simbolito = Simbolos.TablaSimbolos()
+    palabrita = Palabras_Reservadas.Palabras_Reservadas("A","David","D","DA","P")
+    simbolito.insertar_to_dictionary(palabrita)
+    print(simbolito.VariableExists("David"))
+
+
     #simbolito.insertar_to_dictionary(palabrita)
     #valor = simbolito.HashmapFunciones.get(10)
     #simbolito.leer_archivo()
