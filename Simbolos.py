@@ -92,15 +92,14 @@ class TablaSimbolos:
                 leer += dato[i]
             elif dato[i] == "," or dato[i] == ")":
                 palabra = Palabras_Reservadas.Palabras_Reservadas()
-			    palabra.setIden("parametro")
-			    palabra.setNombre(leer)
-			    palabra.setTipo(declaraciones[0])
-			    #palabra.setPadre(funciones.top().getNombre())
-			    self.variables.put(palabra)
+                palabra.setIden("parametro")
+                palabra.setNombre(leer)
+                palabra.setTipo(declaraciones[0])
+                #palabra.setPadre(funciones.top().getNombre())
+                self.variables.put(palabra)
                 declaraciones.pop()
-			    staments.pop_back()
-			    lectura = ""
-			    self.insertar_to_dictionary_var()
+                lectura = ""
+                self.insertar_to_dictionary_var()
             else:
                 declaraciones.append(leer)
                 leer = ""
