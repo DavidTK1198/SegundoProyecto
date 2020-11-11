@@ -44,15 +44,15 @@ class TablaSimbolos:
         self.operators.append('"')
 
     def init_Palabras_Reservada(self):
-        self.PalabrasReservadas.append("void");
-        self.PalabrasReservadas.append("if");
-        self.PalabrasReservadas.append("while");
-        self.PalabrasReservadas.append("for");
-        self.PalabrasReservadas.append("int");
-        self.PalabrasReservadas.append("float");
-        self.PalabrasReservadas.append("char");
-        self.PalabrasReservadas.append("string");
-        self.PalabrasReservadas.append("bool");
+        self.PalabrasReservadas.append("void")
+        self.PalabrasReservadas.append("if")
+        self.PalabrasReservadas.append("while")
+        self.PalabrasReservadas.append("for")
+        self.PalabrasReservadas.append("int")
+        self.PalabrasReservadas.append("float")
+        self.PalabrasReservadas.append("char")
+        self.PalabrasReservadas.append("string")
+        self.PalabrasReservadas.append("bool")
 
     def hashing_function(self, identificador):
         aux = 0
@@ -84,8 +84,27 @@ class TablaSimbolos:
             self.__leer_String(nuevo)
             self.lineaA += 1
 
-
-
+    def __parametro(self, dato):
+        declaraciones = []
+        leer = ""
+        for i in range(dato.len()):
+            if dato[i] != " " and dato[i] != "," and dato[i] != ")":
+                leer += dato[i]
+            elif dato[i] == "," or dato[i] == ")":
+                palabra = Palabras_Reservadas.Palabras_Reservadas()
+			    palabra.setIden("parametro")
+			    palabra.setNombre(leer)
+			    palabra.setTipo(declaraciones[0])
+			    #palabra.setPadre(funciones.top().getNombre()) ?
+			    self.variables.put(palabra)
+                declaraciones.pop()
+			    staments.pop_back()
+			    lectura = ""
+			    self.insertar_to_dictionary_var()
+            else:
+                declaraciones.append(leer)
+                leer = ""
+            
 
     def __leer_String(self,linea):
         stack=queue.LifoQueue()
