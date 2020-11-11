@@ -236,11 +236,51 @@ class TablaSimbolos:
                         i += 1
                         if linea[i] == ";":
                             stack.get()
-                if self.VariableExists(declaracion):
-                    reservada = self.HashmapVariables.get(self.hashing_function(declaracion))
-                    reservadaP = self.HashmapFunciones.get(self.hashing_function(reservada.getLugarP()))
-                    if reservadaP.getTipo() == "void":
-                        errorString = "Se encontro error en la linea " + self.lineaA + reservada.getNombre() + "void no tiene valor de retorno"
+                    if self.VariableExists(declaracion):
+                        reservada = self.HashmapVariables.get(self.hashing_function(declaracion))
+                        reservadaP = self.HashmapFunciones.get(self.hashing_function(reservada.getLugarP()))
+                        if reservadaP.getTipo() == "void":
+                            errorString = "Se encontró error en la línea " + self.lineaA + " void no tiene valor de retorno"
+                            self.mistakes.append(errorString)
+                        elif reservadaP.getTipo() != reservada.getTipo() and reservada.getTipo() != self.funcion.queue[-1].getTipo():
+                            errorString = "Se encontró error en la línea " + self.lineaA + " valor de retorno no coincide con la declaración de " + reservadaP.getNombre()
+                            self.mistakes.append(errorString)
+                        elif reservada.getTipo() != self.funcion.queue[-1].getTipo():
+                            errorString = "Se encontró error en la línea " + self.lineaA + " valor de retorno no coincide con la declaración de " + self.funcion.queue[-1].getNombre()
+                            self.mistakes.append(errorString)
+                else:
+                    errorString = "Se encontró error en la línea " + self.lineaA + " 'return' fuera de la función "
+                    self.mistakes.append(errorString)
+            elif declaracion == "int":
+                bandera = True
+                declaracion = ""
+                stack.put("(")
+                j = i
+                j += 1
+                while not stack.empty():
+                    if linea[j] != '=' and linea[j] != ' ' and  linea[j] != '(':
+                        declaracion += linea[j]
+                    if linea[j] == '=':
+                        stack.get()
+                        bandera = False
+                    if linea[j] == '(':
+                        stack.get()
+                        bandera = True
+                    j += 1
+                if bandera:
+                    palabra = Palabras_Reservadas.Palabras_Reservadas()
+                    palabra.setIden("funcion")
+                    palabra.setNombre(statement)
+                    palabra.lugarP("main")
+                    palabra.setTipo("int")
+                    self.funcion.put(palabra)
+                    self.FunImprimir.put(palabra)
+                    statement = ""
+                    self.insertar_to_dictionary(palabra)
+                else:
+                    declaraciones.append("int")
+                    declaracion = ""
+
 
     def __VariableExists(self, nombre):
         if self.hashing_function(nombre) in self.HashmapFunciones.keys():
