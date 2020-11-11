@@ -1,24 +1,24 @@
-
 import queue
 import array
 import hashlib
 import Palabras_Reservadas
 from io import open
 
+
 class TablaSimbolos:
     def __init__(self):
-         self.lineaA = 1
-         self.funcion = queue.LifoQueue()
-         self.FunImprimir = queue.LifoQueue()
-         self.variables = queue.LifoQueue()
-         self.codigoFuente = []
-         self.PalabrasReservadas = []
-         self.init_Palabras_Reservada()
-         self.operators = []
-         self.init_Operators()
-         self.mistakes = []
-         self.HashmapFunciones = {} #diccionarios
-         self.HashmapVariables = {} #diccionarios
+        self.lineaA = 1
+        self.funcion = queue.LifoQueue()
+        self.FunImprimir = queue.LifoQueue()
+        self.variables = queue.LifoQueue()
+        self.codigoFuente = []
+        self.PalabrasReservadas = []
+        self.init_Palabras_Reservada()
+        self.operators = []
+        self.init_Operators()
+        self.mistakes = []
+        self.HashmapFunciones = {}  # diccionarios
+        self.HashmapVariables = {}  # diccionarios
 
     def init_Operators(self):
         self.operators.append(' ')
@@ -57,7 +57,7 @@ class TablaSimbolos:
     def hashing_function(self, identificador):
         aux = 0
         for i in identificador:
-            aux+= ord(i)
+            aux += ord(i)
         return aux % 20
 
     def insertar_to_dictionary(self, p):
@@ -74,8 +74,8 @@ class TablaSimbolos:
         self.__leerarchivo()
 
     def __leerarchivo(self):
-        archivo=open("funcion1.txt","r",encoding="utf-8")
-        valor=archivo.readlines()
+        archivo = open("funcion1.txt", "r", encoding="utf-8")
+        valor = archivo.readlines()
         archivo.close()
         for i in valor:
             n = i
@@ -95,7 +95,7 @@ class TablaSimbolos:
                 palabra.setIden("parametro")
                 palabra.setNombre(leer)
                 palabra.setTipo(declaraciones[0])
-                #palabra.setPadre(funciones.top().getNombre())
+                # palabra.setPadre(funciones.top().getNombre())
                 self.variables.put(palabra)
                 declaraciones.pop()
                 lectura = ""
@@ -103,10 +103,9 @@ class TablaSimbolos:
             else:
                 declaraciones.append(leer)
                 leer = ""
-            
 
-    def __leer_String(self,linea):
-        stack=queue.LifoQueue()
+    def __leer_String(self, linea):
+        stack = queue.LifoQueue()
         declaracion = ""
         declaraciones = []
         for i in range(len(linea)):
@@ -243,35 +242,10 @@ class TablaSimbolos:
                     if reservadaP.getTipo() == "void":
                         errorString = "Se encontro error en la linea " + self.lineaA + reservada.getNombre() + "void no tiene valor de retorno"
 
-
-
-
-
-
-
-    def __VariableExists(self,nombre):
+    def __VariableExists(self, nombre):
         if self.hashing_function(nombre) in self.HashmapFunciones.keys():
             return False
         return True
 
-    def VariableExists(self,nombre):
+    def VariableExists(self, nombre):
         return self.__VariableExists(nombre)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
