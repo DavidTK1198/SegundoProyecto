@@ -95,7 +95,7 @@ class TablaSimbolos:
 			    palabra.setIden("parametro")
 			    palabra.setNombre(leer)
 			    palabra.setTipo(declaraciones[0])
-			    #palabra.setPadre(funciones.top().getNombre()) ?
+			    #palabra.setPadre(funciones.top().getNombre())
 			    self.variables.put(palabra)
                 declaraciones.pop()
 			    staments.pop_back()
