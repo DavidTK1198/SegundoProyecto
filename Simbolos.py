@@ -90,7 +90,7 @@ class TablaSimbolos:
     def __leer_String(self,linea):
         stack=queue.LifoQueue()
         declaracion = ""
-        vector_declaraciones = []
+        declaraciones = []
         for i in range(len(linea)):
             print(linea[i])
             if linea[i] != " " and linea[i] != "(" and linea[i] != "=" and linea[i] != ";" and linea[i] != "}":
@@ -110,7 +110,7 @@ class TablaSimbolos:
                 if declaracion != ")":
                     ##self.__paramtros(declaracion)
                     declaracion = ""
-            elif linea[i] == "=" and declaracion.len() == 2:
+            elif linea[i] == "=" and declaraciones.__len__() == 2:
                 reservada = Palabras_Reservadas.Palabras_Reservadas()
                 if self.funcion.empty():
                     reservada.setIden("variable")
@@ -210,7 +210,7 @@ class TablaSimbolos:
                 reservada = ""
                 self.insertar_to_dictionary(reservada)
             elif declaracion == "return":
-                if self.funcion.len() != 0:
+                if self.funcion.not_empty():
                     declaracion = ""
                     i += 1
                     stack.put("(")

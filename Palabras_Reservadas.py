@@ -6,12 +6,12 @@ ESTUDIANTES: DAVID BARRIENTOS, DANIEL MADRIGAL, JOEL ZAMORA
 PROFESOR: JOSE CALVO SUÁREZ
 '''
 class Palabras_Reservadas:
-    def __init__(self, tipo, nombre , identificacion, lugarP, valor):
-        self.tipo = tipo
-        self.nombre = nombre
-        self.identificacion = identificacion
-        self.lugarP = lugarP
-        self.valor = valor
+    def __init__(self):
+        self.tipo = ""
+        self.nombre = ""
+        self.identificacion = ""
+        self.lugarP = ""
+        self.valor = ""
 
     def setTipo(self, tipo):
         self.tipo = tipo
@@ -34,6 +34,7 @@ class Palabras_Reservadas:
         print("Identificador" + self.identificacion + '\n')
         print("Lugar Procedencia" + self.lugarP + '\n')
         print("Valor" + self.valor + '\n')
+        
     def getLugarP(self):
         return self.lugarP
 
