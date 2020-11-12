@@ -87,9 +87,11 @@ class TablaSimbolos:
     def __parametro(self, dato):
         declaraciones = []
         leer = ""
-        for i in range(dato.len()):
+        for i in range(len(dato)):
             if dato[i] != " " and dato[i] != "," and dato[i] != ")":
                 leer += dato[i]
+            elif dato[i] == ' ' and dato[i - 1] == ",":
+                a = 0
             elif dato[i] == "," or dato[i] == ")":
                 palabra = Palabras_Reservadas.Palabras_Reservadas()
                 palabra.setIden("parametro")
@@ -98,8 +100,8 @@ class TablaSimbolos:
                 # palabra.setPadre(funciones.top().getNombre())
                 self.variables.put(palabra)
                 declaraciones.pop()
-                lectura = ""
-                self.insertar_to_dictionary_var()
+                leer = ""
+                self.insertar_to_dictionary_var(palabra)
             else:
                 declaraciones.append(leer)
                 leer = ""
@@ -125,14 +127,14 @@ class TablaSimbolos:
                     i += 1
                 i -= 1
                 if declaracion != ")":
-                    #self.__paramtros(declaracion)
+                    self.__parametro(declaracion)
                     declaracion = ""
-            elif linea[i] == "=" and declaraciones.__len__() == 2:
+            elif linea[i] == "=" and len(declaraciones) == 2:
                 reservada = Palabras_Reservadas.Palabras_Reservadas()
                 if self.funcion.empty():
                     reservada.setIden("variable")
-                    reservada.setNombre(declaracion[1])
-                    reservada.setTipo(declaracion[0])
+                    reservada.setNombre(declaraciones[1])
+                    reservada.setTipo(declaraciones[0])
                     reservada.setLugarP("main")
                     declaracion = ""
                     stack.put("(")
@@ -149,7 +151,7 @@ class TablaSimbolos:
                     reservada.setIden("variable")
                     reservada.setNombre(declaracion[1])
                     reservada.setTipo(declaracion[0])
-                    reservada.setLugarP(self.funcion.get().getLugarP())
+                    reservada.setLugarP(self.funcion.queue[-1].getLugarP())
                     declaracion = ""
                     stack.put("(")
                     i += 1
@@ -166,6 +168,22 @@ class TablaSimbolos:
                 else:
                     self.variables.put(reservada)
                     self.insertar_to_dictionary_var(reservada)
+            elif linea[i] == "=" and len(declaracion) != 2:
+                guardaString = declaraciones.pop(0)
+                declaracion = ""
+                stack.put("(")
+                i += 1
+                while not stack.empty():
+                    declaracion += linea[i]
+                    i += 1
+                    if linea[i] == ";":
+                        stack.get()
+                if not self.VariableExists(guardaString):
+                    error = "Se encontró error en la línea " + self.lineaA + ":" +guardaString + "no se encuentra declarado"
+                    self.mistakes.append(errorString)
+                else:
+                    self.HashmapVariables.get(self.hashing_function(error)).setValor(declaracion)
+
             elif declaracion == "void":
                 reservada = Palabras_Reservadas.Palabras_Reservadas()
                 reservada.setIden("funcion")
@@ -184,7 +202,7 @@ class TablaSimbolos:
                 reservada.setTipo("void")
                 self.funcion.put(reservada)
                 self.FunImprimir.put(reservada)
-                reservada = ""
+                declaracion = ""
                 self.insertar_to_dictionary(reservada)
             elif declaracion == "while":
                 reservada = Palabras_Reservadas.Palabras_Reservadas()
@@ -280,12 +298,43 @@ class TablaSimbolos:
                 else:
                     declaraciones.append("int")
                     declaracion = ""
-
+            elif declaracion == "string":
+                bandera = True
+                declaracion = ""
+                stack.put("(")
+                j = i
+                j += 1
+                while not stack.empty():
+                    if linea[j] != '=' and linea[j] != ' ' and linea[j] != '(':
+                        declaracion += linea[j]
+                    if linea[j] == '=':
+                        stack.get()
+                        bandera = False
+                    if linea[j] == '(':
+                        stack.get()
+                        bandera = True
+                    j += 1
+                if bandera:
+                    palabra = Palabras_Reservadas.Palabras_Reservadas()
+                    palabra.setIden("funcion")
+                    palabra.setNombre(statement)
+                    palabra.lugarP("main")
+                    palabra.setTipo("string")
+                    self.funcion.put(palabra)
+                    self.FunImprimir.put(palabra)
+                    statement = ""
+                    self.insertar_to_dictionary(palabra)
+                else:
+                    declaraciones.append("string")
+                    declaracion = ""
+            else:
+                declaraciones.append(declaracion)
+                declaracion = ""
 
     def __VariableExists(self, nombre):
         if self.hashing_function(nombre) in self.HashmapFunciones.keys():
-            return False
-        return True
+            return True
+        return False
 
     def VariableExists(self, nombre):
         return self.__VariableExists(nombre)

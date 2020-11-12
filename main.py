@@ -15,9 +15,7 @@ def incrementar(x):
     x = x+1
 if __name__ == '__main__':
     simbolito = Simbolos.TablaSimbolos()
-    palabrita = Palabras_Reservadas.Palabras_Reservadas()
-    simbolito.insertar_to_dictionary(palabrita)
-    print(simbolito.VariableExists("David"))
+    simbolito.leer_archivo()
 
 
     #simbolito.insertar_to_dictionary(palabrita)
@@ -25,14 +23,7 @@ if __name__ == '__main__':
     #simbolito.leer_archivo()
 
 
-    pilarda = queue.LifoQueue()
-    pilarda.put(2)
-    pilarda.put(4)
-    print(pilarda.queue[-1])
-    print(pilarda.queue[-1])
-    print(pilarda.queue[-1])
-    print(pilarda.queue[-1])
-    print(pilarda.queue[-1]) #AK77 PAH
+
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
