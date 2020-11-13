@@ -12,8 +12,6 @@ class TablaSimbolos:
         self.FunImprimir = queue.LifoQueue()
         self.variables = queue.LifoQueue()
         self.codigoFuente = []
-        self.PalabrasReservadas = []
-        self.init_Palabras_Reservada()
         self.mistakes = []
         self.HashmapFunciones = {}  # diccionarios
         self.HashmapVariables = {}  # diccionarios
@@ -21,16 +19,6 @@ class TablaSimbolos:
         self.errorstring = ""
 
 
-    def init_Palabras_Reservada(self):
-        self.PalabrasReservadas.append("void")
-        self.PalabrasReservadas.append("if")
-        self.PalabrasReservadas.append("while")
-        self.PalabrasReservadas.append("for")
-        self.PalabrasReservadas.append("int")
-        self.PalabrasReservadas.append("float")
-        self.PalabrasReservadas.append("char")
-        self.PalabrasReservadas.append("string")
-        self.PalabrasReservadas.append("bool")
 
     def hashing_function(self, identificador):
         aux = 0
@@ -245,7 +233,7 @@ class TablaSimbolos:
                 j = i
                 j += 1
                 while not stack.empty():
-                    if linea[j] != '=' and linea[j] != ' ' and  linea[j] != '(':
+                    if linea[j] != '=' and linea[j] != ' ' and linea[j] != '(':
                         declaracion += linea[j]
                     if linea[j] == '=':
                         stack.get()
