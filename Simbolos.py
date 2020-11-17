@@ -5,7 +5,9 @@ import Palabras_Reservadas
 from io import open
 
 
+
 class TablaSimbolos:
+
     def __init__(self):
         self.lineaA = 1
         self.funcion = queue.LifoQueue()
@@ -75,6 +77,7 @@ class TablaSimbolos:
                 declaraciones.append(leer)
                 leer = ""
 
+
     def __leer_String(self, linea):
         stack = queue.LifoQueue()
         declaracion = ""
@@ -134,7 +137,7 @@ class TablaSimbolos:
                     if linea[i] == ";":
                         stack.get()
                 if not self.VariableExists(guardastring):
-                    error = "Se encontró error en la línea " + str(self.lineaA) + ": " +guardastring + " no se encuentra declarado" + "\n"
+                    error = "Se encontró error en la línea " + str(self.lineaA) + ": " +guardastring + " no se encuentra declarado"
                     self.mistakes.append(error)
                 else:
                     self.HashmapVariables.get(self.hashing_function(guardastring)).setValor(declaracion)
