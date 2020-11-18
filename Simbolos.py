@@ -84,7 +84,10 @@ class TablaSimbolos:
             if linea[i] != " " and linea[i] != "(" and linea[i] != "=" and linea[i] != ";" and linea[i] != "}":
                 declaracion += linea[i]
             elif linea[i] == "}":
-                self.funcion.get()
+                if self.funcion.empty():
+                    return
+                else:
+                    self.funcion.get()
             elif linea[i] == '(' and declaracion != "if" and declaracion != "while" and declaracion != "for":
                 declaracion = ""
                 stack.put("(")
