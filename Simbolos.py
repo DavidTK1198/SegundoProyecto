@@ -5,7 +5,6 @@ import Palabras_Reservadas
 from io import open
 
 
-
 class TablaSimbolos:
 
     def __init__(self):
@@ -19,8 +18,6 @@ class TablaSimbolos:
         self.HashmapVariables = {}  # diccionarios
         self.codigo = ""
         self.errorstring = ""
-
-
 
     def hashing_function(self, identificador):
         aux = 0
@@ -36,13 +33,14 @@ class TablaSimbolos:
         key = self.hashing_function(p.nombre)
         self.HashmapVariables[key] = p
 
-    def leer_archivo(self,arch):
+    def leer_archivo(self, arch):
         self.__leerarchivo(arch)
 
     def imprimirFuncion(self):
         print(self.codigo)
 
-    def __leerarchivo(self,arch):
+    def __leerarchivo(self, arch):
+        print(" \u001b[32mArchivo Recuperado\u001b[37m")
         archivo = open(arch, "r", encoding="utf-8")
         valor = archivo.readlines()
         archivo.seek(0)
@@ -68,7 +66,6 @@ class TablaSimbolos:
                 palabra.setIden("parametro")
                 palabra.setNombre(leer)
                 palabra.setTipo(declaraciones[0])
-                # palabra.setPadre(funciones.top().getNombre())
                 self.variables.put(palabra)
                 declaraciones.pop()
                 leer = ""
@@ -76,7 +73,6 @@ class TablaSimbolos:
             else:
                 declaraciones.append(leer)
                 leer = ""
-
 
     def __leer_String(self, linea):
         stack = queue.LifoQueue()
@@ -121,7 +117,8 @@ class TablaSimbolos:
                     i -= 1
                     reservada.setValor(declaracion)
                 if self.VariableExists(reservada.getNombre()):
-                    auxiliar = "Se encontro error en la linea " + str(self.lineaA) + reservada.getNombre() + "ha sido declarada previamente"
+                    auxiliar = "Se encontro error en la linea " + str(
+                        self.lineaA) + reservada.getNombre() + "ha sido declarada previamente"
                     self.mistakes.append(auxiliar)
                 else:
                     self.variables.put(reservada)
@@ -137,7 +134,8 @@ class TablaSimbolos:
                     if linea[i] == ";":
                         stack.get()
                 if not self.VariableExists(guardastring):
-                    error = "Se encontró error en la línea " + str(self.lineaA) + ": " +guardastring + " no se encuentra declarado"
+                    error = "Se encontró error en la línea " + str(
+                        self.lineaA) + ": " + guardastring + " no se encuentra declarado"
                     self.mistakes.append(error)
                 else:
                     self.HashmapVariables.get(self.hashing_function(guardastring)).setValor(declaracion)
@@ -218,16 +216,22 @@ class TablaSimbolos:
                         reservada = self.HashmapVariables.get(self.hashing_function(declaracion))
                         reservadaP = self.HashmapFunciones.get(self.hashing_function(reservada.getLugarP()))
                         if reservadaP.getTipo() == "void":
-                            self.errorstring = "Se encontró error en la línea " + str(self.lineaA) + " void no tiene valor de retorno"
+                            self.errorstring = "Se encontró error en la línea " + str(
+                                self.lineaA) + " void no tiene valor de retorno"
                             self.mistakes.append(self.errorstring)
-                        elif reservadaP.getTipo() != reservada.getTipo() and reservada.getTipo() != self.funcion.queue[-1].getTipo():
-                            self.errorstring = "Se encontró error en la línea " + str(self.lineaA) + " valor de retorno no coincide con la declaración de " + reservadaP.getNombre()
+                        elif reservadaP.getTipo() != reservada.getTipo() and reservada.getTipo() != self.funcion.queue[
+                            -1].getTipo():
+                            self.errorstring = "Se encontró error en la línea " + str(
+                                self.lineaA) + " valor de retorno no coincide con la declaración de " + reservadaP.getNombre()
                             self.mistakes.append(self.errorstring)
                         elif reservada.getTipo() != self.funcion.queue[-1].getTipo():
-                            self.errorstring = "Se encontró error en la línea " + str(self.lineaA)+ " valor de retorno no coincide con la declaración de " + self.funcion.queue[-1].getNombre()
+                            self.errorstring = "Se encontró error en la línea " + str(
+                                self.lineaA) + " valor de retorno no coincide con la declaración de " + \
+                                               self.funcion.queue[-1].getNombre()
                             self.mistakes.append(self.errorstring)
                 else:
-                    self.errorstring = "Se encontró error en la línea " + str(self.lineaA) + ": 'return' fuera de la función correspondiente"
+                    self.errorstring = "Se encontró error en la línea " + str(
+                        self.lineaA) + ": 'return' fuera de la función correspondiente"
                     self.mistakes.append(self.errorstring)
             elif declaracion == "int":
                 bandera = True
@@ -304,7 +308,7 @@ class TablaSimbolos:
                     palabra = Palabras_Reservadas.Palabras_Reservadas()
                     palabra.setIden("funcion")
                     palabra.setNombre(declaracion)
-                    palabra.lugarP("main")
+                    palabra.setLugarP("main")
                     palabra.setTipo("string")
                     self.funcion.put(palabra)
                     self.FunImprimir.put(palabra)
@@ -318,7 +322,6 @@ class TablaSimbolos:
                 declaracion = ""
             i += 1
 
-
     def __VariableExists(self, nombre):
         a = self.hashing_function(nombre)
         if a in self.HashmapVariables.keys():
@@ -331,11 +334,12 @@ class TablaSimbolos:
 
     def __Imprime_Errores(self):
         if len(self.mistakes) == 0:
-            print("Codigo compilado correctamente")
+            print("\u001b[34mCodigo compilado correctamente\u001b[37m")
         else:
             for i in self.mistakes:
+                print("\u001b[31m")
                 print(i)
+            print("\u001b[37m")
+
     def ImprimeErrores(self):
         return self.__Imprime_Errores()
-
-

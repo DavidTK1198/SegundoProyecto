@@ -23,8 +23,16 @@ if __name__ == '__main__':
     simbolito2.leer_archivo("funcion2.txt")
     simbolito2.imprimirFuncion()
     simbolito2.ImprimeErrores()
-
-
+    print("-------------------")
+    simbolito3 = Simbolos.TablaSimbolos()
+    simbolito3.leer_archivo("correcto.txt")
+    simbolito3.imprimirFuncion()
+    simbolito3.ImprimeErrores()
+    print("-------------------")
+    simbolito4 = Simbolos.TablaSimbolos()
+    simbolito4.leer_archivo("incorrecto.txt")
+    simbolito4.imprimirFuncion()
+    simbolito4.ImprimeErrores()
 
     #simbolito.insertar_to_dictionary(palabrita)
     #valor = simbolito.HashmapFunciones.get(10)
