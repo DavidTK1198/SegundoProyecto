@@ -40,6 +40,12 @@ class Palabras_Reservadas:
 
     def getNombre(self):
         return self.nombre
+    def getTipo(self):
+        return self.tipo
+    def getValor(self):
+        return self.valor
+    def getIdentificador(self):
+        return self.identificacion
 
 
 
