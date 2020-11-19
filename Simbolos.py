@@ -20,6 +20,7 @@ class TablaSimbolos:
         self.codigo = ""
         self.errorstring = ""
 
+
     def hashing_function(self, identificador):
         aux = 0
         for i in identificador:
@@ -323,6 +324,9 @@ class TablaSimbolos:
                     self.FunImprimir.put(palabra)
                     declaracion = ""
                     self.insertar_to_dictionary(palabra)
+                else:
+                    declaraciones.append("float")
+                    declaracion = ""
             elif declaracion == "string":
                 bandera = True
                 declaracion = ""
@@ -362,7 +366,11 @@ class TablaSimbolos:
     def __VariableExists(self, nombre):
         a = self.hashing_function(nombre)
         if a in self.HashmapVariables.keys():
-            return True
+            aux = self.HashmapVariables.get(a)
+            if nombre == aux.getNombre():
+                return True
+            else:
+                return False
         else:
             return False
 
