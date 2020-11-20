@@ -150,7 +150,15 @@ class TablaSimbolos:
                             stack.get()
 
                     i -= 1
-                    reservada.setValor(declaracion)
+                    if self.VariableExists(declaracion):
+                        var = self.HashmapVariables.get(self.hashing_function(declaracion))
+                        if var.getTipo() == reservada.getTipo():
+                            reservada.setValor(declaracion)
+                        else:
+                            self.errorstring = "Se encontró error en la línea " + str(
+                                self.lineaA) + " El tipo de dato de la variable " + "'" + reservada.getNombre() + "'" + " no coincide con el tipo de dato del parametro "+ declaracion
+                            self.mistakes.append(self.errorstring)
+
                 if self.VariableExists(reservada.getNombre()):
                     auxiliar = "Se encontro error en la linea " + str(
                         self.lineaA) + reservada.getNombre() + " ha sido declarada previamente"
