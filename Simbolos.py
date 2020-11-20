@@ -19,6 +19,7 @@ class TablaSimbolos:
         self.HashmapVariables = {}  # diccionarios
         self.codigo = ""
         self.errorstring = ""
+        self.i=0
 
 
     def hashing_function(self, identificador):
@@ -29,11 +30,15 @@ class TablaSimbolos:
 
     def insertar_to_dictionary(self, p):
         key = self.hashing_function(p.nombre)
+        key += self.i
         self.HashmapFunciones[key] = p
+        self.i = 0
 
     def insertar_to_dictionary_var(self, p):
         key = self.hashing_function(p.nombre)
+        key += self.i
         self.HashmapVariables[key] = p
+        self.i = 0
 
     def leer_archivo(self, arch):
         self.__leerarchivo(arch)
@@ -365,14 +370,15 @@ class TablaSimbolos:
 
     def __VariableExists(self, nombre):
         a = self.hashing_function(nombre)
-        if a in self.HashmapVariables.keys():
-            aux = self.HashmapVariables.get(a)
-            if nombre == aux.getNombre():
-                return True
-            else:
-                return False
-        else:
+        a += self.i
+        aux = self.HashmapVariables.get(a)
+        if aux is not None and nombre != aux.getNombre():
+            self.i += 1
+            self.__VariableExists(nombre)
             return False
+        if aux is not None and nombre == aux.getNombre():
+            return True
+        return False
 
     def VariableExists(self, nombre):
         return self.__VariableExists(nombre)
